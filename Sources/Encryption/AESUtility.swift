@@ -68,7 +68,7 @@ open class AESUtility {
 	- returns: Encryped data representation
 	*/
 	open func encrypt(data: Data) throws -> Data {
-		let aes = try AES(key: symmetricKey)		// this only fails if keySize is wrong
+		let aes = try AES(key: symmetricKey, blockMode: CBC(iv: []))		// this only fails if keySize is wrong
 		return try data.encrypt(cipher: aes)
 	}
 	
@@ -82,7 +82,7 @@ open class AESUtility {
 	- returns: Decrypted data
 	*/
 	open func decrypt(encData: Data) throws -> Data {
-		let aes = try AES(key: symmetricKey)		// this only fails if keySize is wrong
+		let aes = try AES(key: symmetricKey, blockMode: CBC(iv: []))		// this only fails if keySize is wrong
 		let dec = try aes.decrypt(encData.bytes)
 		return Data(bytes: dec)
 	}
